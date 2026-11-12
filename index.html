@@ -168,11 +168,11 @@ var INTERNAL_ROUTE="blu";
 var POINTS=[];
 var markerLayer=L.layerGroup();
 var markerIndex=new Map();
-var map=L.map("map",{crs:L.CRS.Simple,minZoom:-2,maxZoom:3,zoomSnap:.25,zoomDelta:.5,wheelPxPerZoomLevel:85,attributionControl:false,zoomControl:false});
+var map=L.map("map",{crs:L.CRS.Simple,minZoom:-2,maxZoom:4,zoomSnap:.25,zoomDelta:.5,wheelPxPerZoomLevel:85,attributionControl:false,zoomControl:false});
 L.control.zoom({position:"topright"}).addTo(map);
 var imageBounds=[[-IMAGE_H,0],[0,IMAGE_W]];
 L.tileLayer("tiles/{z}/{x}/{y}.webp?v=6",{
-  tileSize:256,noWrap:true,bounds:imageBounds,minNativeZoom:0,maxNativeZoom:3,maxZoom:3,
+  tileSize:256,noWrap:true,bounds:imageBounds,minNativeZoom:0,maxNativeZoom:3,maxZoom:4,
   updateWhenIdle:false,keepBuffer:4
 }).addTo(map);
 var testImg=new Image();
@@ -182,6 +182,8 @@ testImg.src="tiles/0/0/0.webp?v=6";
 map.setMaxBounds([[-IMAGE_H-260,-260],[260,IMAGE_W+260]]);
 L.control.attribution({position:"bottomright",prefix:"Leaflet"}).addTo(map);
 map.fitBounds(imageBounds);
+map.setZoom(map.getZoom()+1);
+map.setMinZoom(map.getZoom());
 
 var supabaseClient=null,globalMarkerChannel=null;
 var ADMIN_SESSION_KEY="wildlands-horsespawn-admin-session";
